@@ -39,7 +39,7 @@ In the process of this projects, several insights are uncovered that would promo
 
 The bar plot titled **Percentage of SAT Participation from 2016 to 2021** showing the aggregate number of states having the various levels of SAT Participation Rates across the years shows that most states fall in the categories of very low SAT participation (0% to 10%), moderate-high (61% to 70%), and very high (91% to 100%).
 
-![Percentage of SAT Participation from 2016 to 2021](data/Percentage of SAT Participation from 2016 to 2021.jpg)
+![Percentage of SAT Participation from 2016 to 2021](data/"Percentage of SAT Participation from 2016 to 2021".jpg)
 
 This goes against the general assumption that large sets of data follow a normal distribution.
 
