@@ -39,25 +39,25 @@ In the process of this projects, several insights are uncovered that would promo
 
 The bar plot titled **Percentage of SAT Participation from 2016 to 2021** showing the aggregate number of states having the various levels of SAT Participation Rates across the years shows that most states fall in the categories of very low SAT participation (0% to 10%), moderate-high (61% to 70%), and very high (91% to 100%).
 
-![Percentage of SAT Participation from 2016 to 2021](data/"Percentage of SAT Participation from 2016 to 2021".jpg)
+![Percentage of SAT Participation from 2016 to 2021](data/pic1.jpg)
 
 This goes against the general assumption that large sets of data follow a normal distribution.
 
 The box plot titled **SAT Participation Rates across the Years** shows the generally increasing trend of SAT participation across the nation.
 
-![SAT Participation Rates across the Years](data/SAT Participation Rates across the Years.jpg)
+![SAT Participation Rates across the Years](data/pic2.jpg)
 
 This means that there are more states that have higher SAT participation rates.
 
 The scatter plot titled **2016 SAT Participation Rate vs 2020 SAT Participation Rate** shows that there is a relatively strong positive relationship between SAT participation rates in 2016 and 2020.
 
-![2016 SAT Participation Rate vs 2020 SAT Participation Rate](data/2016 SAT Participation Rate vs 2020 SAT Participation Rate.jpg)
+![2016 SAT Participation Rate vs 2020 SAT Participation Rate](data/pic3.jpg)
 
 This might suggest that existing marketing and promotions College Board that engages in have a relatively long-lasting locking-in effect. In addition, based on the points at the top left portion of the grid, it can be said that College Board's method of acquiring schools and states of adopt the SAT examinations is successful given that those states have a very low participation in 2016 but have achieved an upwards of 60% participation in 2020. On the other hand, it can be observed that in states where there are low SAT participation rates in 2016, College Board has not made much headway in promoting a higher participation rate.
 
 The scatter plot titled **2019 SAT Participation vs 2019 ACT Participation Rates** shows that there are numerous states where students do both ACT and SAT.
 
-![2019 SAT Participation vs 2019 ACT Participation Rates](data/2019 SAT Participation vs 2019 ACT Participation Rates.jpg)
+![2019 SAT Participation vs 2019 ACT Participation Rates](data/pic4.jpg)
 
 It can be seen that a significant reason when there is a low participation rate for one exam, there is a high participation rate for the other. This is observed from how when a point is high on the the participation_sat (horizontal axis), the same point is located very left along the participation_act.
 
