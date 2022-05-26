@@ -1,5 +1,5 @@
 
-# Project 2
+# Project 3
 
 ## Background
 I am part of the data science team working in a beverage company, Coftea, specializing in coffee and tea. With the rise of numerous e-commerce platforms and numerous competitors in this space, it is important that the decisions made are founded on data in order to standout from the crowd.
