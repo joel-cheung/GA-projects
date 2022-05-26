@@ -20,7 +20,7 @@ To optimize our marketing expenditure, we would like to target our advertisement
 |subreddit|object|Scrapped from r/tea|Reddit thread the post is from|
 |selftext|object|Scrapped from r/tea|Additional information to the title|
 |title|object|Scrapped from r/tea|Title of the submission|
-|created_utc|integer|Scrapped from r/tea|Unix time submission is made|
+|created_utc|integer|Scrapped from r/tea|Unix time when submission is made|
 
 ### df_coffee
 
@@ -29,7 +29,7 @@ To optimize our marketing expenditure, we would like to target our advertisement
 |subreddit|object|Scrapped from r/coffee|Reddit thread the post is from|
 |selftext|object|Scrapped from r/coffee|Additional information to the title|
 |title|object|Scrapped from r/coffee|Title of the submission|
-|created_utc|integer|Scrapped from r/coffee|Unix time submission is made|
+|created_utc|integer|Scrapped from r/coffee|Unix time when submission is made|
 
 ## Cleaning Data
 First, there is a need to clean data. The first step is to drop the created_utc column that was only used for the function to scrap submissions from the two subreddits.
