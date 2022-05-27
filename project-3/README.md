@@ -1,5 +1,5 @@
 
-# Project 3
+# Project 2
 
 ## Background
 I am part of the data science team working in a beverage company, Coftea, specializing in coffee and tea. With the rise of numerous e-commerce platforms and numerous competitors in this space, it is important that the decisions made are founded on data in order to standout from the crowd.
@@ -20,7 +20,7 @@ To optimize our marketing expenditure, we would like to target our advertisement
 |subreddit|object|Scrapped from r/tea|Reddit thread the post is from|
 |selftext|object|Scrapped from r/tea|Additional information to the title|
 |title|object|Scrapped from r/tea|Title of the submission|
-|created_utc|integer|Scrapped from r/tea|Unix time when submission is made|
+|created_utc|integer|Scrapped from r/tea|Unix time submission is made|
 
 ### df_coffee
 
@@ -29,7 +29,7 @@ To optimize our marketing expenditure, we would like to target our advertisement
 |subreddit|object|Scrapped from r/coffee|Reddit thread the post is from|
 |selftext|object|Scrapped from r/coffee|Additional information to the title|
 |title|object|Scrapped from r/coffee|Title of the submission|
-|created_utc|integer|Scrapped from r/coffee|Unix time when submission is made|
+|created_utc|integer|Scrapped from r/coffee|Unix time submission is made|
 
 ## Cleaning Data
 First, there is a need to clean data. The first step is to drop the created_utc column that was only used for the function to scrap submissions from the two subreddits.
@@ -54,7 +54,7 @@ Feature engineering is only limited to creating a new column that combines the c
 ## Exploratory Data Analysis (EDA)
 The first EDA done is on the length of the submissions in both subreddits.
 
-![Word Count of Submissions](data/Word Count of submissions.JPG)
+![Word Count of Submissions](data/Word_Count_of_submissions.JPG)
 
 It can be seen that there are more shorter posts (less than or equal to 25 words) in the tea subreddit as compared those from r/coffee. For longer posts, this trend is reversed.
 
@@ -62,7 +62,7 @@ It can be seen that there are more shorter posts (less than or equal to 25 words
 
 Next, we looked at the top 20 most observed words in both subreddits. They are displayed here:
 
-![Top 20 most observed word in both subreddits](data/Top 20 Popular Words.JPG)
+![Top 20 most observed word in both subreddits](data/Top_20_Popular_Words.JPG)
 
 The above plots show the top 20 words that are most frequently observed. It is observed that there are many words in the respective subreddits that are indicative of which subreddit they are from. 
 
@@ -74,7 +74,7 @@ For coffee, the very telling words are the type of coffee beans, and the equipme
 
 Next, we looked at the top 20 most observed pairs of words in both subreddits. They are displayed here:
 
-![Top 20 most observed pairs of words in both subreddits](data/Top 20 Popular Pairs of Words.JPG)
+![Top 20 most observed pairs of words in both subreddits](data/Top_20_Popular_Pairs_of_Words.JPG)
 
 The above plots show the top 20 words that are most frequently observed. Compared to the most frequently observed single words, the most frequently observed pairs of words are also indicative of the subreddit they come from.
 
@@ -86,7 +86,7 @@ For coffee, the very telling pairs are the type of coffee beans and terms relati
 
 Next, we looked at the top 20 most observed trio of words in both subreddits. They are displayed here:
 
-![Top 20 most observed trio of words in both subreddits](data/Top 20 Popular Trio of Words.JPG)
+![Top 20 most observed trio of words in both subreddits](data/Top_20_Popular_Trio_of_Words.JPG)
 
 The above plots show the top 20 words that are most frequently observed. There seems to be a mix of informative and telling trio of words but also words that do not make sense on its own. 
 
@@ -107,50 +107,50 @@ The baseline has an accuracy of close to 50%. This is based on the number of sub
 ### CountVectorizer Multinomial Naive Bayes
 After transforming the 'text' column data with CountVectorizer and the parameters tuned, the confusion matrix and the ROC are:
 
-![Confusion Matrix of CountVectorizer Multinomial Naive Bayes Model](data/Confusion Matrix cvec mnb.JPG)
+![Confusion Matrix of CountVectorizer Multinomial Naive Bayes Model](data/Confusion_Matrix_cvec_mnb.JPG)
 
-![ROC curve of CountVectorizer Multinomial Naive Bayes Model](data/ROC cvec mnb.JPG)
+![ROC curve of CountVectorizer Multinomial Naive Bayes Model](data/ROC_cvec_mnb.JPG)
 
 ### CountVectorizer Bernoulli Naive Bayes
 After transforming the 'text' column data with CountVectorizer and the parameters tuned, the confusion matrix and the ROC are:
 
-![Confusion Matrix of CountVectorizer Bernoulli Naive Bayes Model](data/Confusion Matrix cvec bnb.JPG)
+![Confusion Matrix of CountVectorizer Bernoulli Naive Bayes Model](data/Confusion_Matrix_cvec_bnb.JPG)
 
-![ROC curve of CountVectorizer Bernoulli Naive Bayes Model](data/ROC cvec bnb.JPG)
+![ROC curve of CountVectorizer Bernoulli Naive Bayes Model](data/ROC_cvec_bnb.JPG)
 
 ### TF-IDF Multinomial Naive Bayes
 After transforming the 'text' column data with TF-IDF and the parameters tuned, the confusion matrix and the ROC are:
 
-![Confusion Matrix of TF-IDF Multinomial Naive Bayes Model](data/Confusion Matrix tvec mnb.JPG)
+![Confusion Matrix of TF-IDF Multinomial Naive Bayes Model](data/Confusion_Matrix_tvec_mnb.JPG)
 
-![ROC curve of TF-IDF Multinomial Naive Bayes Model](data/ROC tvec mnb.JPG)
+![ROC curve of TF-IDF Multinomial Naive Bayes Model](data/ROC_tvec_mnb.JPG)
 
 
 ### TF-IDF Bernoulli Naive Bayes
 After transforming the 'text' column data with TF-IDF and the parameters tuned, the confusion matrix and the ROC are:
 
-![Confusion Matrix of TF-IDF Bernoulli Naive Bayes Model](data/Confusion Matrix tvec bnb.JPG)
+![Confusion Matrix of TF-IDF Bernoulli Naive Bayes Model](data/Confusion_Matrix_tvec_bnb.JPG)
 
-![ROC curve of TF-IDF Bernoulli Naive Bayes Model](data/ROC tvec bnb.JPG)
+![ROC curve of TF-IDF Bernoulli Naive Bayes Model](data/ROC_tvec_bnb.JPG)
 
 ### CountVectorizer Random Forest
 After transforming the 'text' column data with CountVectorizer and the parameters tuned, the confusion matrix and the ROC are:
 
-![Confusion Matrix of CountVectorizer Random Forest Model](data/Confusion Matrix cvec rf.JPG)
+![Confusion Matrix of CountVectorizer Random Forest Model](data/Confusion_Matrix_cvec_rf.JPG)
 
-![ROC curve of CountVectorizer Random Forest Model](data/ROC cvec rf.JPG)
+![ROC curve of CountVectorizer Random Forest Model](data/ROC_cvec_rf.JPG)
 
 ## Summary of Accuracy
 The following plot summarizes the accuracy of the 5 models that were ran:
 
-![Summary of Model Accuracy](data/Model Accuracy Summary.JPG)
-![Summary of Model Accuracy](data/Model Accuracy Summary plot.JPG)
+![Summary of Model Accuracy](data/Model_Accuracy_Summary.JPG)
+![Summary of Model Accuracy](data/Model_Accuracy_Summary_plot.JPG)
 
 ## Top Predictor Words
 The following plots summarizes the top 10 predictor words for both tea and coffee:
 
-![Top 10 Predictor Words for tea](data/Top 10 Predictor Words for tea.JPG)
-![Top 10 Predictor Words for coffee](data/Top 10 Predictor Words for coffee.JPG)
+![Top 10 Predictor Words for tea](data/Top_10_Predictor_Words_for_tea.JPG)
+![Top 10 Predictor Words for coffee](data/Top_10_Predictor_Words_for_coffee.JPG)
 
 ## Limitations and Future Steps
 
