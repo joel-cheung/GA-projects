@@ -180,7 +180,7 @@ However, given the training times of the model, the Multinomial Naive Bayes migh
 |Multinomial Naive Bayes| 1|
 |Random Forest| 58| 
 |Support Vector Machine| 54|
-|BERT 2 Epochs| 218 (8-9 hours)|
-|BERT 10 Epochs| 903 (15 hours)|
+|BERT 2 Epochs| 218 (~3.5 hours)|
+|BERT 10 Epochs| 903 (~15 hours)|
 
 *Train times of the models are rounded up to the closest minute.
