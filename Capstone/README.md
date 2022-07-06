@@ -150,7 +150,7 @@ For character trigrams from tweets flagged as racist, as compared to the charact
 
 The first model is Multinomial Naive Bayes. This is done to select which text configuration (which word or character n-gram to select) to use for the other models. The results of the Multinomial Naive Bayes models are as follows:
 
-|Configuration| F1-score|
+|Configuration| F1-score (Validation)|
 |---|---|
 |Best Stemmed Text n-gram| 0.769|
 |Best Lemmatized Text n-gram| 0.769| 
@@ -171,7 +171,7 @@ Using character 4grams based on lemmatized text, the other models that are train
 * Bidirectional Encoder Representations from Transformers (BERT) 2 Epochs
 * Bidirectional Encoder Representations from Transformers (BERT) 10 Epochs
 
-|Model| F1-score|
+|Model| F1-score (Validation)|
 |---|---|
 |Multinomial Naive Bayes| 0.781|
 |Random Forest| 0.728| 
