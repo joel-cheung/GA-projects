@@ -140,7 +140,11 @@ For character trigrams from tweets flagged as racist, as compared to the charact
 
 # Modelling
 
-##### Note that the pickled models for random forest, BERT 2 Epochs, and BERT 10 Epochs are not found on the GitHub due to their file sizes. But they can be found [here](https://drive.google.com/file/d/1mebA1ejNdTaHzi0b7yG0VpPsQwBZpo_V/view?usp=sharing)
+##### Note that the pickled models for random forest, BERT 2 Epochs, and BERT 10 Epochs are not found on the GitHub due to their file sizes. But they can be found here:
+
+[Random Forest](https://drive.google.com/file/d/1uWOGoDroFYz4J6khWzhdhDAg5zAERd-h/view?usp=sharing)
+[BERT 2 Epochs](https://drive.google.com/file/d/1mebA1ejNdTaHzi0b7yG0VpPsQwBZpo_V/view?usp=sharing)
+[BERT 10 Epochs](https://drive.google.com/file/d/1Q-nRkimqOtkytDDm4lFw6N3B7y8V4qAu/view?usp=sharing)
 
 The first model is Multinomial Naive Bayes. This is done to select which text configuration (which word or character n-gram to select) to use for the other models. The results of the Multinomial Naive Bayes models are as follows:
 
