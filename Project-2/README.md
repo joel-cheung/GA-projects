@@ -1,228 +1,186 @@
 # Project 2
 
-## Background
-The buying and selling of home properties is a big issue for many Americans given that some properties may be costly, and relocating for work or personal reasons is commonplace in countries as large as USA. Alongside relocation comes the buying and selling of properties, and immigrants and emigrants of Ames, Iowa are no exception. Like everyone, they would want to negotiate and buy/sell their property for a price that is deemed reasonable by the market (as observed from past SalePrice), and hopefully minimize their losses (if the owners are desperate) or make a little profit off the transaction.
+# Background
+The buying and selling of home properties is a big issue for many Americans given that some properties may be costly, and relocating for work or personal reasons is commonplace in countries as large as USA. Like everyone, buyers and sellers would want to negotiate and buy/sell their property for a price that is deemed reasonable by the market (as observed from past SalePrice), and hopefully minimize their losses (if the owners are desperate), and if possible, make a little profit off the transaction.
 
-## Problem Statement
-Given the self-interest of both the buyer and seller (or through their agents), there are many opportunity for people to capitalize on the asymmetric information of the other party by exploiting them in the form of under/over quoting them. To address this issue, my data-driven and savvy team of property agents can better advice our clients on the SalePrice they can expect to get in a fair trade, and can act as a benchmark when it comes to negotiations. With the opening up borders and inter-state travelling returning, there is greater need for our advice and we will not only predict the expected house prices, but also the key areas of improvement homeowners can engage in to increase their chances of fetching a higher price when selling.
+# Problem Statement
+Given the self-interest of both the buyer and seller (or through their agents), there are many opportunity for people to capitalize on the asymmetric information of the other party by exploiting them in the form of under/over quoting them. To address this issue, my data-driven team of property agents developed a pricing model so that we can better advice our clients on the SalePrice they can expect to get in a fair trade, and the model's predictions can act as benchmarks to be used in negotiations. With the opening up borders and inter-state travelling returning, it is expected that there will be a greater need for our service and we will not only predict the expected house prices, but also the key areas of improvement homeowners can engage in to increase their chances of fetching a higher price when selling.
 
-## Data Used
-* ['test.csv'](./data/test.csv): Characteristics of houses sold and their sale price.
-* ['train.csv'](./data/train.csv): Characteristics of houses sold without their sale price.
+Based on the challenge information, the metric of interest of the models will be Root Mean Square Error (RMSE).
 
-## Data Generated
-* ['train.csv'](./data/train.csv): Characteristics of houses sold and their sale price.
+# Data Used
+* ['test.csv'](./data/test.csv): Characteristics of houses to base the predicted sale price on.
+* ['train.csv'](./data/train.csv): Characteristics of houses previously sold with their sale price.
 
-## External Data used:
-The following link provides information on the minimum lot area of the various regions in Iowa. This can be used for data cleaning purposes as any observations that has a Gr Liv Area (Above grade ground living area square feet) can be reassigned to take on that minimum value:
-https://www.cityofames.org/home/showdocument?id=35206
+# Data Cleaning
+First, there is a need to clean data. This comes in the form of handling missing data and converting datatypes based on discretion and reference to the data dictionary provided. This is because there cannot be missing values when running Ordinary Least Squares (OLS) regression, lasso regression, and ridge regression models.
 
-## Cleaning Data
-First, there is a need to clean data. This comes in the form of handling missing data and converting datatypes based on discretion and reference to the data dictionary provided. This is because there cannot be missing values when running linear regression, lasso regression, and ridge regression models.
+## Data Type Conversion
+The following conversions are made:
+|Variable| Original datatype | Converted datatype |
+|---|---|---|
+|MS SubClass| Integer | Object
+|Overall Qual| Integer | Object
+|Overall Cond| Integer | Object
+|Mo Sold| Integer | Object
 
-There were 4 variables that had too many missing values (more than 80% of the entire dataset or 1640) and are dropped. They are Pool QC, Misc Feature, Alley, Fence.
+## Imputing Missing Data
+There were 4 variables that had too many missing values (more than 80% of the entire dataset)  are dropped. They are Pool QC, Misc Feature, Alley, Fence.
 
-In the interest of time, missing continuous numerical data are imputed using the mean, while categorical data are imputed using the mode.
+For variables with one or two missing values, those observations are removed for simplicity. The variables with these very low missing counts are:
+* Bsmt Full Bath
+* Bsmt Half Bath
+* Garage Area
+* Garage Cars
+* Total Bsmt SF
+* Bsmt Unf SF
+* BsmtFin SF 2
+* BsmtFin SF 1
 
-Included in this step is also the changing of data type for a few variables, they are as follows:
-* MS SubClass - from integers to string this is because they are considered categories, but have names to those categories as numbers e.g. 85 representing the property has a split foyer. 
+For the other numerical variables with missing values, they can be grouped into a few groups. The groups and the way the missing values are imputed are as follows:
+|Group| Columns | Missing Count | Imputation Method|
+|---|---|---|---|
+|Fireplace Qu|-|998|Filled in with 'None'
+|Lot Frontage|-|330|Filled with median based on Neighborhood
+|Garage variables |Garage Type, Garage Cond, Garage Yr Blt, Garage Finish, Garage Qual|113|Missing Garage yr Blt filled in with Yr Sold values; others filled in with 'None'
+|Basement variables |Bsmt Exposure, BsmtFin Type 1, BsmtFin Type 2, Bsmt Cond, Bsmt Qual|53 to 56| Filled in with 'None'
+|Masonry Veneer variables|Mas Vnr Area, Mas Vnr Type|22| Missing Mas Vnr Area filled in with 0; missing Mas Vnr Type filled in with 'None'
 
-* Mo Sold - from integer to strings, as I would like to look for any seasonality effect across each year by converting integers into their respective months, e.g. 1 converted to Jan
+The 'None' value for some features is used as it is assumed that those properties with 'None' values do not have those fixtures, e.g. no garage, or no basement.
 
-* Overall Qual and Overall Cond - from integer to strings, changing datatype to string, to be used as ordinal data, 1 as the worst and 10 being the best.
+#  Feature Engineering
+To start, 3 new features are created:
+* PropertyAge = Year Built - Yr Sold
+* PropertyModAge = Year Remod/Add - Yr Sold
+* GarageAge = Garage Yr Blt - Yr Sold
 
-##  Feature Engineering
-To start, 3 new features are made:
-* PropertyAge: Year Built - Yr Sold
-* PropertyModAge: Year Remod/Add - Yr Sold
-* GarageAge: Garage Yr Blt - Yr Sold
 Year Built, Year Remod/Add, and Garage Yr Blt are dropped from the dataset.
 
+Given that linear models generally do well when the variables are normally distributed, the target variable SalePrice is log-transformed. Based on the plot, it can be seen that this transformation has made log-SalePrice closely follow the normal distribution.
 
-Based on plots shown later and on hindsight, two new features are made:
-* Gr Liv Area2: the square of Gr Liv Area
-* Total Bsmt SF2: the square of Total Bsmt SF
+![Distribution of log-transformed SalePrice](data/log_SalePrice.JPG)
 
-Gr Liv Area and Total Bsmt SF are not dropped from the dataset.
-
-These variables are at attempt to tease out the polynomial symbols discussed later and it seem to pay off given that the ridge regression's (chosen model) cross validation RSME is reduced by about 2000.
-
-## Exploratory Data Analysis (EDA)
-Using the correlation heatmap, we can sieve out which of the following numerical variables are highly correlated with SalePrice, our target variable.
+# Exploratory Data Analysis (EDA)
+Using the correlation plot, we can sieve out which of the following numerical variables are highly correlated with SalePrice, our target variable.
 
 Due to the large number of numerical variables, the entire heatmap is not shown here, but a column of it is included. It shows the level of influence each of the numerical variables have on SalePrice
 
-![Correlation between Numerical Variables with SalePrice](data/Corr_plot_single.JPG)
+![Correlation between Numerical Variables with SalePrice](data/Corr_plot.JPG)
 
-The lowly correlated ones (a threshold I set as absolute correlation being under 0.05) are removed from the dataset. They are:
+The lowly correlated ones (a threshold I set as absolute correlation being under 0.20) are removed from the dataset. They are:
+* Bsmt Unf SF' 
+* Enclosed Porch
+* Bedroom AbvGr
+* Screen Porch
+* Kitchen AbvGr
 * 3Ssn Porch
+* Bsmt Half Bath
+* Low Qual Fin SF
 * Pool Area
 * BsmtFin SF 2
 * Misc Val
-* Yr Sold
-* Low Qual Fin SF
-* Bsmt Half Bath
 
-For each of the categorical variables, there are 2 subplots, the left shows the boxplots for each of the categories while the right displays the bar plot showing the count of each categories observed in the dataset.
+## Categorical Variables Dropped
+This is done to reduce the complexity of the model without losing much information.
 
-Through the EDA process, there are many categorical variables are deemed not useful.
+Across the categorical variables, SalePrice of the property does not vary much across the months (as seen in the following plot), and thus Mo Sold is dropped. 
+![Mo Sold plot](data/Mo_Sold_relationship.JPG)
 
-However, given the composition of observations, there are many characteristics (categorical variables) where one or two categories are disproportionately represented and are not useful for analysis and hence dropped.
-
-These variables are:
-- Mo Sold
-- MS Zoning
-- Street
-- Land Contour
-- Utilities
-- Lot Config
-- Land Slope
-- Condition 1
-- Condition 2
-- Bldg Type
-- Roof Style
-- Roof Matl
-- Exterior 2nd
-- Exter Cond
-- Bsmt Cond
-- BsmtFin Type 2
-- Heating
-- Central Air
-- Electrical
-- Functional
-- Garage Qual
-- Garage Cond
-- Paved Drive
-- Sale Type
-
-### Interesting Findings
+## Interesting Findings
 It should come as no surprise that the better the quality of a house is, the higher the price it can fetch as compared to another with a lower quality, ceteris paribas. This is seen here:
 
 ![Plots of Overall Qual](data/Overall_Qual_plot.JPG)
 
-However, when we look at the remapped version of Overall Cond (a very similar quality to Overall Qual):
+However, when we look at Overall Cond (a very similar quality to Overall Qual):
 
 ![Plots of Overall Cond](data/Overall_Cond_plot.JPG)
 
-It can be observed that the organization/ third party individual giving the rating might not be very sharp in discerning properties in good condition and those in bad conditions, given that properties that are rated higher are fetching a lower price when looking at the median.
+This may suggest that the organization/ third party individual giving the rating might not be very sharp in discerning properties in good condition and those in bad conditions, given that properties that are rated higher (6 to 9) are fetching a lower price when looking at the median (compared to a rating of 5).
 
-However, based on the results of our chosen model (Ridge Regression), the coefficient of Overall Cond_High is stronger than Overall Cond_5, which is in direct conflict with the plot.
-
-## More Data Preprocessing
+# Data Preprocessing
 In order to obtain models that are stable (i.e. have minimal coefficients that are not too drastically different in magnitude), there is a need for normalizing. 
 
-To do so, the dataset is split based on their type. Numerical data are normalized while categorical data are one-hot-encoded.
+To do so, the dataset is split based on their type. Numerical data are normalized while categorical data are one-hot-encoded, with a level dropped to avoid perfect multicollinearity that would impede the model's predictive power.
 
-Lastly, the dataset is separated using the train/test split.
+Lastly, the dataset is separated using the train/test split for the training of models.
 
-## Running Machine Learning Models
+# Running Machine Learning Models
 Across the 3 models, the cross validation fold is set to 5 for consistency. The metrics of the models will be shown later.
 
-### Linear Regression
-The linear regression is first conducted and will act as the baseline model. 
+## OLS
+The OLS regression is first conducted and will act as the baseline model. 
 
-When plotting the actual SalePrice is against the SalePrice predicted by the Linear Regression model, the result is as follows:
+Unfortunately, the OLS Model has extremely high RMSE and thus will not be a recommended model.
 
-![Linear Regression Plot](data/lr_plot.JPG)
+## Lasso Regression
+The optimal alpha for the model is first calculated which is then used to fit the model on the training dataset.
 
-It can be observed that for properties that are sold for more than $350,000 the linear regression tend to underestimate.
+This is the recommended model given the metrics shown below.
 
-### Lasso Regression
-The optimal alpha is first calculated using cross validation, which will then be used to train the lasso regression using the train data. It is then trained on the explanatory variables in the testing data and compared against the actual SalePrice in the test set.
+When plotting the actual log-transformed SalePrice is against the log-transformed SalePrice predicted by the Lasso Regression model, the result is as follows:
 
-When plotting the actual SalePrice is against the SalePrice predicted by the Lasso Regression model, the result is as follows:
+![Lasso Regression Plot](data/lasso_plot.JPG)
 
-![Lasso Regression Plot](data/ls_plot.JPG)
-
-Unlike the plots from Linear Regression and Ridge Regression, the plot for Lasso Regression seems to deviate the most from the line of equality (the dotted red line). For properties expecting to be sold at a lower price (~$180,000), Lasso Regression tend to overestimate, and price of properties above that price point tend to be underestimated.
-
-### Ridge Regression
-The optimal alpha is first calculated using cross validation, which will then be used to train the ridge regression using the train data. It is then trained on the explanatory variables in the testing data and compared against the actual SalePrice in the test set.
+## Ridge Regression
+The optimal alpha for the model is first calculated which is then used to fit the model on the training dataset.
 
 When plotting the actual SalePrice is against the SalePrice predicted by the Ridge Regression model, the result is as follows:
 
-![Ridge Regression Plot](data/rr_plot.JPG)
+![Ridge Regression Plot](data/ridge_plot.JPG)
 
+This plot is similar to that of the lasso model. To be more certain on which model is better, we have to look at the metrics.
 
-The rounded Root Mean Squared Error (RMSE) is the choice of metric and are as follows:
-|Model| Train RMSE | CV RMSE | Comment|
+# Regression Results
+The rounded R2 and Root Mean Squared Error (RMSE) is the choice of metric and are as follows:
+|Model| Test R2 | Test RMSE | Comment|
 |---|---|---|---|
-|Linear Regression|26,613|26,435|Baseline Model
-|Lasso Regression|65,493|60,774| Worst Performing Model
-|Ridge Regression|26,548|26,364| Best Performing Model
+|Linear Regression|Negative|Too Large|Baseline, Worst Performing Model
+|**Lasso Regression**|**0.89951**|**0.12327**| Best Performing Model
+|Ridge Regression|0.89595|0.12543| Second Best Performing Model
 
-Based on the merits of having the lowest cross validation RMSE, the Ridge Regression model is selected.
+Based on the merits of having the lowest test RMSE and highest R2 score, the Lasso Regression model is selected.
 
-## Residual Analysis
-#### Linear Regression
-Plotting the predicted SalePrice using the Linear Regression against its residuals, we have the following:
+# Residual Analysis
+The residual analysis will be done for the recommended model - lasso model.
 
-![Linear Regression Residual Plot](data/lr_residual_plot.JPG)
-
-It can be observed that the bulk of residuals are around 0, and that the assumption of homoskedasticity is mostly held, especially where prices are not very high or very low. 
-
-#### Lasso Regression
+## Lasso Regression
 Plotting the predicted SalePrice using the Lasso Regression against its residuals, we have the following:
 
-![Lasso Regression Residual Plot](data/ls_residual_plot.JPG)
+![Lasso Regression Residual Plot](data/lasso_residual_plot.JPG)
 
-It can be observed that there is a clear relationship between the Lasso Regression predicted SalePrice and its residuals as illustrated by the purple line. This could be due to the a linear model is not the best model in this case.
+The residuals 'bounce' around the 0-line with no noticeable patterns, suggesting that the assumption that the relationship is linear is reasonable.
 
-#### Ridge Regression
-Plotting the predicted SalePrice using the Ridge Regression against its residuals, we have the following:
+The residuals roughly form a horizontal zone around the 0-line. This suggests that the variances of the error terms are equal, albeit violated by some outliers.
 
-![Ridge Regression Residual Plot](data/rr_residual_plot.JPG)
+There are a few residuals that stand out (as seen from those outside of the 2 outer bands. These are identified as outliers.
 
-Similar to Linear Regression, it can be observed that the bulk of residuals are around 0, and that the assumption of homoskedasticity is mostly held, especially where prices are not very high or very low. 
-
-## Results from Ridge Regression
-Since the Ridge Regression is our chosen model, we can use it to analyze the most influential variables in affecting SalePrice.
+# Most Influential Factors of Lasso Regression Model
+Since the Lasso Regression is our chosen model, we can use it to analyze the most influential variables in affecting SalePrice.
  
- A plot of the Ridge Regression's most influential variables are as shown:
+ A plot of the Lasso Regression's most influential variables are as shown:
 
-![Ridge Regression Influential Variables Plot](data/strong_coeff.JPG)
+![Lasso Regression Influential Variables Plot](data/strong_coeff.JPG)
 
-Looking at the top 10 most influential variables, we can focus on a few variables, namely:
-* Overall Qual - get a very high classification
-* Exter Qual - get an excellent classification
-* Kitchen Qual - get an excellent classification
-* MS SubClass - renovate house to be [020] 1-STORY 1946 & NEWER ALL STYLES, [030] 1-STORY 1945 & OLDER, [050] 1-1/2 STORY FINISHED ALL AGES, [060] 2-STORY 1946 & NEWER, [070] 2-STORY 1945 & OLDER
-* Overall Cond - get a high classification
+Note that the coefficients (influence on log-transformed SalePrice) are illustrated in their magnitudes (absolute values) and do not necessarily show their true sign.
 
-## Kaggle Submission
-In the first submission, I received a less than delightful score:
+Looking at the top 5 most influential variables, we can focus on a few variables, namely:
+* Garage Qual_Gd - get a good rating for garage
+* Overall Cond_9 - get an very high overall condition rating
+* Overall Qual_3 - actively avoid a low overall quality rating
+* Garage Cond_Po - actively avoid a low garage condition rating
+* Neighborhood_MeadowV - having the property be in the Meadow Village neighborhood
 
-![First submission Kaggle score](data/kaggle_score.JPG)
+# Kaggle Submission
+After converting the predicted log-transformed SalePrice back to the original unit, the predicted SalePrice folder is sent for submission and the score is as follows:
+![Kaggle submission score](data/kaggle_score.JPG)
 
-Looking deeper in my prediction, I plotted the Ridge Regression predicted SalePrice alongside actual SalePrice provided in the train csv.
+# Main Takeaways and Future Steps
 
-![Predicted vs Actual SalePrice](data/pred_vs_actual.JPG)
-
-Looking at the predicted SalePrice, it is observed that there is not much of a right tail, this could be due to the fact that my imputation methods are central leaning (using mean and mode) and/or that there are not many data points available for properties with high SalePrice.
-
-Also, looking at the horizontal axis, there seems to some negative bias of about $110,000.
-
-After applying a rightward shift (adding $110,000 to all predicted SalePrice)  and plotting it, the SalePrice values seem to match better:
-
-![Shifted Predicted vs Actual SalePrice](data/pred_vs_actual_shifted.JPG)
-
-This is also reflected in the improved Kaggle score in the second submission with the shifted SalePrice.
-
-![Second submission Kaggle score](data/kaggle_score_shifted.JPG)
-
-This bias might be indicative of underfitting of the model.
-
-## Main Takeaways and Future Steps
-
-1. The clearest, unambiguous way to increase the SalePrice would be to maintain a high quality of the external of the property, maintain a high quality of the kitchen, and to finish the 1/2 story (if your property has an unfinished 2nd floor, referring to MS SubClass 50 above).
+1. Based on the top predictors, it is intuitive and wise for the homeowner to achieve a high rating for the property, with the garage quality and condition being very significant in affecting SalePrice.
 
 2. 
 
 Based on the following plots shown above:
-- Actual vs Expected SalePrice plots,
-- Lasso Regression's residual plots, and 
-- Two plots of histograms of the predicted SalePrice for kaggle and the actual SalePrice observed
+- Lasso Regression's residual plots
 
-All of them strongly suggest that a lot of data points for properties that are expected to fetch a high SalePrice (>$ 350,000) are required for existing models to better predict those properties, or that a separate model that seems non-linear (seemingly a log model or any other model with an increasing concave down form will better fit those data points.
-
-3.  Need to check for weakness in the model used, such as residual analysis to test homoskedasticity, underfitting/overfitting from the bias/variance respectively, and any conflicting sign that may indicate some level of omitted variable bias.
+There may be a need to remove the outliers that would otherwise disproportionately skew the SalePrice, especially those observations that are 3 standard deviations away from the mean (after log-tranforming SalePrice).
