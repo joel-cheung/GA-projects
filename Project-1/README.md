@@ -1,5 +1,4 @@
 <img src="http://imgur.com/1ZcRyrc.png" style="float: left; margin: 20px; height: 55px">
-
 # Project 1: SAT Participation Data Analysis 
 
 # Information
@@ -81,3 +80,4 @@ For states where the state has have agreements with ACT Inc., College Board can 
 As for states that do not make the SAT or ACT compulsory, College Board can market to students and parents as stated above, but also work closely with universities so that the skills and knowledge tested in SAT can better match the pre-requisite knowledge required for the entry level modules. Moreover, College Board can directly work with universities to have them only consider applications that are include their SAT scores.
 
 For future studies, having a clearer idea of marketing and implementation costs when it comes to lobbying for making the SAT compulsory or setting up the systems with regulators and school administrators to ensure a seamless exam administration and reporting workflow would allow for more detailed analysis. That would entail a cost-benefit analysis that can uncover opportunities that might look profitable but are loss making when accounting for the said high set-up costs or the lack of economies of scale.
+
