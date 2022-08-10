@@ -3,7 +3,7 @@
 # Project 2: Ames Housing Sale Price Prediction Project
 
 # Information
-This project is based on this kaggle challenge, with the datasets provided on there as well:
+This project is based on a kaggle challenge:
 https://www.kaggle.com/c/dsi-us-11-project-2-regression-challenge
 
 # Background

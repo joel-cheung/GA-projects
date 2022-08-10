@@ -3,7 +3,7 @@
 # Project 4: West Nile Virus Prediction Project
 
 # Information
-This project is based on this kaggle challenge, with the datasets provided on there as well: https://www.kaggle.com/c/predict-west-nile-virus/
+This project is based on a kaggle challenge: https://www.kaggle.com/c/predict-west-nile-virus/
 
 # Background
 The West Nile virus (WNV) first appeared in the Americas in 1999, and has since become the **leading** mosquito-borne disease in the country ([source](https://www.nejm.org/doi/full/10.1056/NEJM200106143442401)). It is a virus transmitted to humans by mosquitoes that feed on infected birds. Around 20% of people who become infected with the virus develop symptoms ranging from fever, and headaches, to serious neurological illnesses that can result in death. The first WNV case was identified in Illinois in September 2001 when laboratory tests confirmed its presence in two crows found dead in the Chicago area. By the end of 2002, Illinois accounted for more human cases and deaths than any other state ([source](https://dph.illinois.gov/topics-services/diseases-and-conditions/west-nile-virus)). Since there is no vaccine or medication to prevent or treat WNV in people, the most effective way to prevent this virus is to reduce the number of mosquitoes and to take precautions to avoid mosquito bites ([source](https://www.cdc.gov/westnile/index.html#:~:text=There%20are%20no%20vaccines%20to,a%20fever%20and%20other%20symptoms.)). 
