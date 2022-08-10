@@ -1,10 +1,18 @@
-# Project 2
+<img src="http://imgur.com/1ZcRyrc.png" style="float: left; margin: 20px; height: 55px">
+
+# Project 2: Ames Housing Sale Price Prediction Project
+
+# Information
+This project is based on this kaggle challenge, with the datasets provided on there as well:
+https://www.kaggle.com/c/dsi-us-11-project-2-regression-challenge
 
 # Background
 The buying and selling of home properties is a big issue for many Americans given that some properties may be costly, and relocating for work or personal reasons is commonplace in countries as large as USA. Like everyone, buyers and sellers would want to negotiate and buy/sell their property for a price that is deemed reasonable by the market (as observed from past SalePrice), and hopefully minimize their losses (if the owners are desperate), and if possible, make a little profit off the transaction.
 
 # Problem Statement
 Given the self-interest of both the buyer and seller (or through their agents), there are many opportunity for people to capitalize on the asymmetric information of the other party by exploiting them in the form of under/over quoting them. To address this issue, my data-driven team of property agents developed a pricing model so that we can better advice our clients on the SalePrice they can expect to get in a fair trade, and the model's predictions can act as benchmarks to be used in negotiations. With the opening up borders and inter-state travelling returning, it is expected that there will be a greater need for our service and we will not only predict the expected house prices, but also the key areas of improvement homeowners can engage in to increase their chances of fetching a higher price when selling.
+
+As a starting point, my team has identified the city of Ames in Iowa to be the first city to embark on this project.
 
 Based on the challenge information, the metric of interest of the models will be Root Mean Square Error (RMSE).
 

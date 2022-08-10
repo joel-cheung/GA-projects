@@ -1,3 +1,10 @@
+<img src="http://imgur.com/1ZcRyrc.png" style="float: left; margin: 20px; height: 55px">
+
+# Project 1: SAT Participation Data Analysis 
+
+# Information
+This is the first project in the course, and this project aims to familiarize students to the Exploratory Data Analysis portion of the data science workflow and to be familiar with the basic Python functions and methods. Prompts from the course instructors are included in this notebook.
+
 # Problem Statement
 The new format for the SAT was released in March 2016. Since then, levels of participation in multiple states have changed with varying legislative decisions. This project aims to explore trends in SAT participation for the years 2016 to 2021, seeks to identify profitable opportunities in the market segments, and to advice College Board on targeted methods that they can engage in to increase SAT participation rates.
 

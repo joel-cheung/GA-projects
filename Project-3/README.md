@@ -1,24 +1,30 @@
+<img src="http://imgur.com/1ZcRyrc.png" style="float: left; margin: 20px; height: 55px">
 
-# Project 3
+# Project 3: Subreddit Classification Project
 
-## Background
+# Information
+This projects covers the scraping of the Reddit APIs, Natural Language Processing, and classification machine learning models.
+
+The purpose of this project is to train the models to predict which subreddit a submission belongs to: r/coffee or r/tea.
+
+# Background
 I am part of the data science team working in a beverage company, Coftea, specializing in coffee and tea products. With the rise of numerous e-commerce platforms and numerous competitors in this space, it is important that the decisions made are founded on data in order to standout from the crowd.
 
-## Problem Statement
+# Problem Statement
 To optimize our marketing expenditure, we would like to target our advertisements to people who are most likely going to buy our products. A good proxy would be their past search results. Also, buzz in the forums would give us a good indication of upcoming and fading trends so that we are more informed of our R&D focus and stock re-filling. My team and I are presenting to fellow colleagues and management who are non-technical, to share our findings on a recent project to build a classification model for the company that would be the foundation of this optimization.
 
 With our classification models, we will be able to identify the types of tea leaves or coffee beans, machinery, and even derivative products (such as pastry) to stock up so that Coftea can capture the rising demand.
 
 Since we are looking to advertise to consumers who have shown some indication of interest in certain products (through the proxy of posting on sites such as subreddit), we will use accuracy as the primary metric.
 
-## Data Used
+# Data Used
 These 2 datasets are scraped from their respective reddit threads.
 * ['df_coffee.csv'](./data/df_coffee.csv): The titles, descriptions and subreddit thread (r/coffee) of 2000 submissions.
 * ['df_tea.csv'](./data/df_tea.csv): The titles, descriptions and subreddit thread (r/tea) of 2000 submissions.
 
-## Data Dictionary
+# Data Dictionary
 
-### df_tea
+## df_tea
 
 |Feature|Type|Dataset|Description|
 |---|---|---|---|
@@ -27,7 +33,7 @@ These 2 datasets are scraped from their respective reddit threads.
 |title|object|Scrapped from r/tea|Title of the submission|
 |created_utc|integer|Scrapped from r/tea|Unix time submission is made|
 
-### df_coffee
+## df_coffee
 
 |Feature|Type|Dataset|Description|
 |---|---|---|---|
@@ -36,7 +42,7 @@ These 2 datasets are scraped from their respective reddit threads.
 |title|object|Scrapped from r/coffee|Title of the submission|
 |created_utc|integer|Scrapped from r/coffee|Unix time submission is made|
 
-## Cleaning Data
+# Cleaning Data
 First, there is a need to clean data. This starts off by combining both datasets into one.
 
 The first step is to combine the columns selftext and title, into raw_text.
@@ -61,14 +67,14 @@ The resulting columns in the datasets are 'subreddit' and 'text' (the cleaned ve
 
 After checking and removing duplicate thread submissions and removing very short, cleaned submissions, the dataset is ready to be analyzed and modelled from.
 
-## Exploratory Data Analysis (EDA)
+# Exploratory Data Analysis (EDA)
 The first EDA done is on the length of the submissions in both subreddits.
 
 ![Word Count of Submissions](data/Word_Count_of_submissions.JPG)
 
 It can be seen that there are more shorter posts (less than or equal to 25 words) in the tea subreddit as compared those from r/coffee. For longer posts, this trend is reversed.
 
-### Unigram EDA
+## Unigram EDA
 
 Next, we looked at the top 20 most observed unigrams in each subreddit. They are displayed here:
 
@@ -81,7 +87,7 @@ From r/tea, we see words relating to the type of tea. For instance, 'green' and 
 
 From r/coffee, we see words relating to coffee-making equipment such as 'grinder' and 'machine'.
 
-### Bigram EDA
+## Bigram EDA
 
 Next, we looked at the top 20 most observed bigrams of each subreddit. They are displayed here:
 
@@ -104,7 +110,7 @@ For r/coffee, we have more information such as:
 -   Way coffee is prepared: cold brew
 -   Way coffee bean is preprocessed: light roast, dark roast
 
-### Trigram EDA
+## Trigram EDA
 
 Next, we looked at the top 20 most observed trigrams in each subreddit. They are displayed here:
 
@@ -117,31 +123,31 @@ For r/tea, the additional information primarily includes types of tea, such as t
 
 For r/coffee, there is limited information we can gather from trigram that are not seen in bigrams. Primarily, the additional information are the brands of machinery: Breville, Gaggia, Bialetti.
 
-## Machine Learning Models
+# Machine Learning Models
 The two transformer methods are CountVectorizer and Term Frequency–Inverse Document Frequency (TF-IDF).
 
 The classifier models used are Multinomial Naive Bayes, Bernoulli Naive Bayes, and Random Forest.
 
 The models used have gone through hyperparameter tuning and these hyperparameters are used to produce the metric we are most interested in - accuracy. This is because we would want our model to be able to correctly classify tea and coffee whenever a person looks up a word that is related to either of those categories.
 
-### Baseline
+## Baseline
 The baseline has an accuracy of close to 50%. This is based on the number of submissions that was scrapped from each subreddit.
 
-### CountVectorizer Multinomial Naive Bayes
+## CountVectorizer Multinomial Naive Bayes
 After transforming the 'text' column data with CountVectorizer and the parameters tuned, the confusion matrix and the ROC are:
 
 ![Confusion Matrix of CountVectorizer Multinomial Naive Bayes Model](data/Confusion_Matrix_cvec_mnb.JPG)
 
 ![ROC curve of CountVectorizer Multinomial Naive Bayes Model](data/ROC_cvec_mnb.JPG)
 
-### CountVectorizer Bernoulli Naive Bayes
+## CountVectorizer Bernoulli Naive Bayes
 After transforming the 'text' column data with CountVectorizer and the parameters tuned, the confusion matrix and the ROC are:
 
 ![Confusion Matrix of CountVectorizer Bernoulli Naive Bayes Model](data/Confusion_Matrix_cvec_bnb.JPG)
 
 ![ROC curve of CountVectorizer Bernoulli Naive Bayes Model](data/ROC_cvec_bnb.JPG)
 
-### TF-IDF Multinomial Naive Bayes
+## TF-IDF Multinomial Naive Bayes
 After transforming the 'text' column data with TF-IDF and the parameters tuned, the confusion matrix and the ROC are:
 
 ![Confusion Matrix of TF-IDF Multinomial Naive Bayes Model](data/Confusion_Matrix_tvec_mnb.JPG)
@@ -149,28 +155,28 @@ After transforming the 'text' column data with TF-IDF and the parameters tuned, 
 ![ROC curve of TF-IDF Multinomial Naive Bayes Model](data/ROC_tvec_mnb.JPG)
 
 
-### TF-IDF Bernoulli Naive Bayes
+## TF-IDF Bernoulli Naive Bayes
 After transforming the 'text' column data with TF-IDF and the parameters tuned, the confusion matrix and the ROC are:
 
 ![Confusion Matrix of TF-IDF Bernoulli Naive Bayes Model](data/Confusion_Matrix_tvec_bnb.JPG)
 
 ![ROC curve of TF-IDF Bernoulli Naive Bayes Model](data/ROC_tvec_bnb.JPG)
 
-### CountVectorizer Random Forest
+## CountVectorizer Random Forest
 After transforming the 'text' column data with CountVectorizer and the parameters tuned, the confusion matrix and the ROC are:
 
 ![Confusion Matrix of CountVectorizer Random Forest Model](data/Confusion_Matrix_cvec_rf.JPG)
 
 ![ROC curve of CountVectorizer Random Forest Model](data/ROC_cvec_rf.JPG)
 
-### TF-IDF Random Forest
+## TF-IDF Random Forest
 After transforming the 'text' column data with TF-IDF and the parameters tuned, the confusion matrix and the ROC are:
 
 ![Confusion Matrix of TF-IDF Random Forest Model](data/Confusion_Matrix_tvec_rf.JPG)
 
 ![ROC curve of TF-IDF Random Forest Model](data/ROC_tvec_rf.JPG)
 
-## Summary of Accuracy
+# Summary of Accuracy
 The following plot summarizes the accuracy of the 5 models that were ran:
 
 ![Summary of Model Accuracy](data/Model_Accuracy_Summary.JPG)
@@ -178,7 +184,7 @@ The following plot summarizes the accuracy of the 5 models that were ran:
 
 Based on the test accuracy, the best model we would recommend using is the TF-IDF Multinomial Naive Bayes Model.
 
-## Top Predictor Words
+# Top Predictor Words
 The following plots summarizes the top 10 predictor words from the recommended model for both tea and coffee:
 
 ![Top 10 Predictor Words for tea](data/Top_10_Predictor_Words_for_tea.JPG)
