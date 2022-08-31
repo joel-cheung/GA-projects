@@ -119,22 +119,22 @@ For the trigrams from tweets flagged as sexist, there is also not much additiona
 
 # Modelling
 
-##### Note that the pickled model for BERT 50 Epochs is not found on the GitHub due to its file size. But it can be found here:
+##### Note that the pickled BERT model is not found on the GitHub page due to its file size. But it can be found here:
 
-[BERT 50 Epochs](https://drive.google.com/file/d/11TodNIbnfzhRyW_iNAcNP_Quh5cs6868/view?usp=sharing)
+[BERT Model](https://drive.google.com/file/d/11TodNIbnfzhRyW_iNAcNP_Quh5cs6868/view?usp=sharing)
 
 The models that are trained are:
 * Multinomial Naive Bayes
 * Random Forest
 * Support Vector Machine (SVM)
-* Bidirectional Encoder Representations from Transformers (BERT) 50 Epochs
+* Bidirectional Encoder Representations from Transformers (BERT)
 
 |Model| F1-score (Train)| F1-score (Validation)| F1-score (Test)|
 |---|---|---|---|
 |Multinomial Naive Bayes| 0.922| 0.889| 0.640|
 |Random Forest| 0.999| 0.931| 0.883|
 |Support Vector Machine| 0.963| 0.927| 0.882|
-|BERT 50 Epochs| 0.999| 0.927| 0.856|
+|BERT| 0.999| 0.927| 0.856|
 
 
-Based on the F1-scores from the test dataset, the random forest model is the best performing model, with the SVM model of  being a close second.
+Based on the F1-scores from the test dataset, the random forest model is the best performing model, with the SVM model being a close second.
