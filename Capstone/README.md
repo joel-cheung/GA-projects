@@ -132,7 +132,7 @@ The models that are trained are:
 |Model| F1-score (Train)| F1-score (Validation)| F1-score (Test)|
 |---|---|---|---|
 |Multinomial Naive Bayes| 0.922| 0.889| 0.640|
-|Random Forest| 0.999| 0.931| 0.883|
+|**Random Forest**| 0.999| 0.931| **0.883**|
 |Support Vector Machine| 0.963| 0.927| 0.882|
 |BERT| 0.999| 0.927| 0.856|
 
