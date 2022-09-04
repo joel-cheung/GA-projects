@@ -35,23 +35,23 @@ There are 2 notebooks used for this project:
 2.  Notebook 2: Modelling, Evaluation, and Cost-Benefit Analysis
 
 # Model Evaluation
-The best model is the AdaBoost model with a cross validation ROC AUC of 0.8809.
+The best model is the XGBoost model with a cross validation ROC AUC of 0.8805.
 
 ### Summary
 | Method | Cross Validation ROC AUC | Ranking|
 |---|---|---|
-| Logistic Regression (Baseline) | 85.42% | 7th |
-| Random Forest| 87.90%  | 4th |
-| AdaBoost | 88.09%  | 1st | 
-| Gradient Boost | 88.08% | 2nd |
-| XGBoost | 87.99% | 3rd |
-| Support Vector Machine | 87.72% | 5th |
-| k-Nearest Neighbours | 85.92% | 6th |
+| Logistic Regression | 85.74% | 7th |
+| Random Forest | 87.81%  | 2nd/3rd |
+| AdaBoost | 87.81%  | 2nd/3rd | 
+| Gradient Boost | 87.37% | 5th |
+| XGBoost | 88.05% | 1st |
+| Support Vector Machine | 87.67% | 4th |
+| k-Nearest Neighbours | 85.50% | 6th |
 
 # Conclusion and Recommendations
 
 ### Recommended Model
-The AdaBoost model will be used for future predictions, given its highest cross validation ROC AUC score.
+The XGBoost model will be used for future predictions, given its highest cross validation ROC AUC score.
 
 ###  Targeted Mosquito Abatement Recommendations
 -   Increase larviciding initiation at the location which has a high risk of West Nile Virus emergence (WnV case > 5). Current allocated resource is only for 190 acres which translates to 1 neighborhood. An additional 800 acres will cost approximately USD77,920.
